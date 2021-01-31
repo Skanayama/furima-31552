@@ -37,8 +37,8 @@
 
 ### Association
 
-- belongs_to :users
-- has_one :buy_logs
+- belongs_to :user
+- has_one :buy_log
 
 
 ## buy_logs テーブル
@@ -50,9 +50,9 @@
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
-- has_one :addresses
+- belongs_to :user
+- belongs_to :item
+- has_one :address
 
 
 ## addresses テーブル
@@ -69,5 +69,5 @@
 
 ### Association
 
-- belongs_to :buy_logs
+- belongs_to :buy_log
 
