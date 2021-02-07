@@ -148,6 +148,12 @@ describe User do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid')
       end
+      it 'passwordが全角のみであれば登録できない' do
+        @user.password = '００００００'
+        @user.password_confirmation = '００００００'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
       it 'passwordとpassword_confirmationが不一致であれば登録できない' do
         @user.password = 'a00000'
         @user.password_confirmation = 'b00000'
