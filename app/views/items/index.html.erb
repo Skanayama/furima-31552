@@ -152,9 +152,7 @@
         <% end %>
         </li>
 
-      <%# 商品がない場合は以下のダミー商品を表示 %>
       <% unless @items.any? %>
-      <%# 商品がある場合は未表示 %>
       <li class='list'>
         <%= link_to '#' do %>
         <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -173,8 +171,6 @@
         <% end %>
       </li>
       <% end %>
-      <%# //商品がある場合は未表示 %>
-      <%# //商品がない場合は以下のダミー商品を表示 %>
     </ul>
   </div>
   <%# /商品一覧 %>
