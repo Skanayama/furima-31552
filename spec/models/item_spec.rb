@@ -31,7 +31,7 @@ describe Item do
       it 'category_idが1だと登録できない' do
         @item.category_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category must be other than 1")
+        expect(@item.errors.full_messages).to include('Category must be other than 1')
       end
       it 'state_idが空だと登録できない' do
         @item.state_id = ''
@@ -41,7 +41,7 @@ describe Item do
       it 'state_idが1だと登録できない' do
         @item.state_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("State must be other than 1")
+        expect(@item.errors.full_messages).to include('State must be other than 1')
       end
       it 'deliver_fee_idが空だと登録できない' do
         @item.deliver_fee_id = ''
@@ -51,7 +51,7 @@ describe Item do
       it 'deliver_fee_idが1だと登録できない' do
         @item.deliver_fee_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Deliver fee must be other than 1")
+        expect(@item.errors.full_messages).to include('Deliver fee must be other than 1')
       end
       it 'deliver_area_idが空だと登録できない' do
         @item.deliver_area_id = ''
@@ -61,7 +61,7 @@ describe Item do
       it 'deliver_area_idが1だと登録できない' do
         @item.deliver_area_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Deliver area must be other than 1")
+        expect(@item.errors.full_messages).to include('Deliver area must be other than 1')
       end
       it 'deliver_date_idが空だと登録できない' do
         @item.deliver_date_id = ''
@@ -71,7 +71,7 @@ describe Item do
       it 'deliver_date_idが1だと登録できない' do
         @item.deliver_date_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Deliver date must be other than 1")
+        expect(@item.errors.full_messages).to include('Deliver date must be other than 1')
       end
       it 'priceが空だと登録できない' do
         @item.price = ''
@@ -81,22 +81,37 @@ describe Item do
       it 'priceが300未満だと登録できない' do
         @item.price = rand(0..299)
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
+      end
+      it 'priceが10,000,000以上だと登録できない' do
+        @item.price = '10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
       it 'priceが英字では登録できない' do
-        @item.price = /\A[a-zA-Z]+\z/
+        @item.price = 'test'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it 'priceが全角数字では登録できない' do
-        @item.price = /\A[０-９]+\z/
+        @item.price = '５０００'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price is invalid')
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
-      it 'priceが全角ひらがな、全角カタカナ、漢字では登録できない' do
-        @item.price = /\A[ぁ-んァ-ン一-龥]/
+      it 'priceが全角ひらがなでは登録できない' do
+        @item.price = 'かな'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price is invalid')
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+      it 'priceが全角カタカナでは登録できない' do
+        @item.price = 'カナ'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+      it 'priceが漢字では登録できない' do
+        @item.price = '漢字'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
 
     end
