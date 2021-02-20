@@ -24,16 +24,20 @@ class ItemsController < ApplicationController
   end
   
   def edit
-
   end
   
   def update
-
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
       render :edit
     end
+  end
+
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to action: :index
   end
 
   private
