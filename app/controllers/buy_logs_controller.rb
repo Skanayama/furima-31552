@@ -30,11 +30,7 @@ class BuyLogsController < ApplicationController
   end
 
   def user_check
-    if current_user == @item.user
-      redirect_to items_path
-    elsif @item.buy_log.present?
-      redirect_to items_path
-    end
+    redirect_to items_path if current_user == @item.user || @item.buy_log.present?
   end
 
   def payjp
