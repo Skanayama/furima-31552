@@ -1,9 +1,14 @@
 class BuyLogsController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
 
   def index
     @item = Item.find(params[:item_id])  
     @buy_log_address = BuyLogAddress.new
-
+      if current_user == @item.user
+        redirect_to items_path
+      elsif @item.buy_log.present?
+        redirect_to items_path
+      end
   end
  
   def create

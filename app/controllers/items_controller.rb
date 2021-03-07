@@ -24,6 +24,9 @@ class ItemsController < ApplicationController
   end
   
   def edit
+    if @item.buy_log.present?
+      redirect_to items_path
+    end
   end
   
   def update
