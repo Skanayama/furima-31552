@@ -24,12 +24,11 @@ class ItemsController < ApplicationController
   end
   
   def edit
-    if @item.buy_log.present?
-      redirect_to items_path
-    end
+    buy_check
   end
   
   def update
+    buy_check
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
@@ -54,6 +53,12 @@ class ItemsController < ApplicationController
   def no_current_user_redirect
     unless current_user == @item.user
       redirect_to action: :index
+    end
+  end
+
+  def buy_check
+    if @item.buy_log.present?
+      redirect_to items_path
     end
   end
 
