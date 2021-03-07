@@ -1,0 +1,2 @@
+module BuyLogHelper
+end
